@@ -13,31 +13,15 @@
       background-color: #212529; /* Dark background color */
       color: #fff; /* Light text color */
     }
-
-    #chartContainer {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      z-index: 1000;
-      background-color: #343a40; /* Dark background color for chart container */
-      padding: 20px;
-    }
-
-    #dataEntryContainer {
-      margin-top: 120px; /* Ensure space below chart for data entry */
-    }
   </style>
 </head>
 <body>
-  <div id="chartContainer">
-    <div class="container">
-      <h2>Odds Trend Chart</h2>
-      <canvas id="oddsChart" width="400" height="200"></canvas>
-    </div>
+  <div class="container mt-5">
+    <h2>Odds Trend Chart</h2>
+    <canvas id="oddsChart" width="400" height="200"></canvas>
   </div>
 
-  <div id="dataEntryContainer" class="container mt-5">
+  <div class="container mt-5">
     <h2>Enter Odds Data</h2>
     <div class="form-group">
       <label for="teamA">Team A Odds:</label>
@@ -92,27 +76,25 @@
             label: 'Team A Odds',
             data: teamAData,
             borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 2,
+            borderWidth: 1,
             fill: false
           }, {
             label: 'Team B Odds',
             data: teamBData,
             borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 2,
+            borderWidth: 1,
             fill: false
           }]
         },
         options: {
-          maintainAspectRatio: false,
           scales: {
             xAxes: [{
               scaleLabel: {
                 display: true,
-                labelString: 'Data Point',
-                fontColor: '#fff'
+                labelString: 'Data Point'
               },
               ticks: {
-                fontColor: "#fff" // X-axis label color
+                fontColor: "#fff", // X-axis label color
               },
               gridLines: {
                 color: "rgba(255, 255, 255, 0.1)", // X-axis grid line color
@@ -121,11 +103,10 @@
             yAxes: [{
               scaleLabel: {
                 display: true,
-                labelString: 'Odds',
-                fontColor: '#fff'
+                labelString: 'Odds'
               },
               ticks: {
-                fontColor: "#fff" // Y-axis label color
+                fontColor: "#fff", // Y-axis label color
               },
               gridLines: {
                 color: "rgba(255, 255, 255, 0.1)", // Y-axis grid line color
@@ -140,8 +121,6 @@
         }
       });
     }
-
-    generateChart(); // Initial chart generation
   </script>
 </body>
 </html>
