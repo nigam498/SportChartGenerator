@@ -1,126 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sports Odds Analysis</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    body {
-      background-color: #212529; /* Dark background color */
-      color: #fff; /* Light text color */
-    }
-  </style>
-</head>
-<body>
-  <div class="container mt-5">
-    <h2>Odds Trend Chart</h2>
-    <canvas id="oddsChart" width="400" height="200"></canvas>
-  </div>
-
-  <div class="container mt-5">
-    <h2>Enter Odds Data</h2>
-    <div class="form-group">
-      <label for="teamA">Team A Odds:</label>
-      <input type="number" class="form-control" id="teamA">
-    </div>
-    <div class="form-group">
-      <label for="teamB">Team B Odds:</label>
-      <input type="number" class="form-control" id="teamB">
-    </div>
-    <button class="btn btn-primary" onclick="addData()">Add Data</button>
-    <button class="btn btn-secondary" onclick="refreshChart()">Refresh Chart</button>
-  </div>
-
-  <script>
-    let teamAData = [];
-    let teamBData = [];
-    let chart;
-
-    function addData() {
-      const teamAOdd = parseFloat(document.getElementById('teamA').value);
-      const teamBOdd = parseFloat(document.getElementById('teamB').value);
-
-      if (!isNaN(teamAOdd) && !isNaN(teamBOdd)) {
-        teamAData.push(teamAOdd);
-        teamBData.push(teamBOdd);
-        generateChart();
-      } else {
-        alert('Please enter valid odds for both teams.');
-      }
-    }
-
-    function refreshChart() {
-      if (chart) {
-        chart.destroy();
-      }
-      teamAData = [];
-      teamBData = [];
-      generateChart();
-    }
-
-    function generateChart() {
-      if (chart) {
-        chart.destroy();
-      }
-
-      const ctx = document.getElementById('oddsChart').getContext('2d');
-      chart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: Array.from(Array(teamAData.length).keys()), // Generate labels as per data length
-          datasets: [{
-            label: 'Team A Odds',
-            data: teamAData,
-            borderColor: 'rgba(255, 99, 132, 1)',
-            borderWidth: 1,
-            fill: false
-          }, {
-            label: 'Team B Odds',
-            data: teamBData,
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1,
-            fill: false
-          }]
-        },
-        options: {
-          scales: {
-            xAxes: [{
-              scaleLabel: {
-                display: true,
-                labelString: 'Data Point'
-              },
-              ticks: {
-                fontColor: "#fff", // X-axis label color
-              },
-              gridLines: {
-                color: "rgba(255, 255, 255, 0.1)", // X-axis grid line color
-              }
-            }],
-            yAxes: [{
-              scaleLabel: {
-                display: true,
-                labelString: 'Odds'
-              },
-              ticks: {
-                fontColor: "#fff", // Y-axis label color
-              },
-              gridLines: {
-                color: "rgba(255, 255, 255, 0.1)", // Y-axis grid line color
-              }
-            }]
-          },
-          legend: {
-            labels: {
-              fontColor: "#fff" // Legend label color
-            }
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Odds Analysis</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background-color: #212529;
+            /* Dark background color */
+            color: #fff;
+            /* Light text color */
         }
-      });
-    }
-  </script>
+    </style>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <!-- Left side for chart -->
+            <div class="col-md-6">
+                <h2>Odds Trend Chart</h2>
+                <canvas id="oddsChart" width="400" height="200"></canvas>
+            </div>
+            <!-- Right side for data input -->
+            <div class="col-md-6">
+                <h2>Enter Odds Data</h2>
+                <div class="form-group">
+                    <label for="teamA">Team A Odds:</label>
+                    <input type="number" class="form-control" id="teamA">
+                </div>
+                <div class="form-group">
+                    <label for="teamB">Team B Odds:</label>
+                    <input type="number" class="form-control" id="teamB">
+                </div>
+                <button class="btn btn-primary" onclick="addData()">Add Data</button>
+                <button class="btn btn-secondary" onclick="refreshChart()">Refresh Chart</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let teamAData = [];
+        let teamBData = [];
+        let chart;
+
+        function addData() {
+            const teamAOdd = parseFloat(document.getElementById('teamA').value);
+            const teamBOdd = parseFloat(document.getElementById('teamB').value);
+
+            if (!isNaN(teamAOdd) && !isNaN(teamBOdd)) {
+                teamAData.push(teamAOdd);
+                teamBData.push(teamBOdd);
+                generateChart();
+            } else {
+                alert('Please enter valid odds for both teams.');
+            }
+        }
+
+        function refreshChart() {
+            if (chart) {
+                chart.destroy();
+            }
+            teamAData = [];
+            teamBData = [];
+            generateChart();
+        }
+
+        function generateChart() {
+            if (chart) {
+                chart.destroy();
+            }
+
+            const ctx = document.getElementById('oddsChart').getContext('2d');
+            chart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: Array.from(Array(teamAData.length).keys()), // Generate labels as per data length
+                    datasets: [{
+                        label: 'Team A Odds',
+                        data: teamAData,
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 1,
+                        fill: false
+                    }, {
+                        label: 'Team B Odds',
+                        data: teamBData,
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        borderWidth: 1,
+                        fill: false
+                    }]
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Data Point'
+                            },
+                            ticks: {
+                                fontColor: "#fff", // X-axis label color
+                            },
+                            gridLines: {
+                                color: "rgba(255, 255, 255, 0.1)", // X-axis grid line color
+                            }
+                        }],
+                        yAxes: [{
+                            scaleLabel: {
+                                display: true,
+                                labelString: 'Odds'
+                            },
+                            ticks: {
+                                fontColor: "#fff", // Y-axis label color
+                            },
+                            gridLines: {
+                                color: "rgba(255, 255, 255, 0.1)", // Y-axis grid line color
+                            }
+                        }]
+                    },
+                    legend: {
+                        labels: {
+                            fontColor: "#fff" // Legend label color
+                        }
+                    }
+                }
+            });
+        }
+    </script>
 </body>
+
 </html>
